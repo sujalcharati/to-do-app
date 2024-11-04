@@ -17,24 +17,18 @@ async function insertUser(email: string, password: string) {
 
 
 
-// async function createTodo(userId: number, title: string, description: string) {
-//   const user = await prisma.user.findUnique({
-//     where: { id: userId },
-//   });
+async function createTodo(userId: number, title: string, description: string) {
 
-//   if (!user) {
-//     throw new Error(`User with id ${userId} does not exist`);
-//   }
 
-//   const todo = await prisma.todo.create({
-//     data: {
-//       title,
-//       description,
-//       userId
-//     },
-//   });
-//   console.log(todo);
+  const todo = await prisma.todo.create({
+    data: {
+      title,
+      description,
+      userId
+    },
+  });
+  console.log(todo);
 
-// }
+}
 
-// createTodo(1, "go to gym", "go to gym and do 10 pushups");
+createTodo(9, "go to gym", "go to gym and do 10 pushups");
