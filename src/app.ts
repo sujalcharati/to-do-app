@@ -1,7 +1,7 @@
 import express from 'express';
 const app = express();
 import { PrismaClient} from "@prisma/client";
-import { signupSchema } from "./schemas/validation";
+import { signupSchema, todoSchema } from "./schemas/validation";
 import { Request, Response } from 'express';
 import { ZodError } from "zod";
 
@@ -31,15 +31,9 @@ app.post('/signup', async (req: Request, res: Response) => {
 
 app.listen(3000,()=> console.log('the server is running on port 3000'))
 
-// app.post('/login', async (req, res) => {
-//   const { email, password } = signupSchema.parse(req.body);
+app.post('/todo', async( req: Request,res:Response){
+const {title, description}= todoSchema.parse(req.body);
 
-//   const user = await prisma.user.findUnique({ where: { email } });
-//   if (!user || !(await bcrypt.compare(password, user.password))) {
-//     return res.status(400).json({ error: 'Invalid credentials' });
-//   }
 
-//   const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET!);
-//   res.json({ token });
-// });
 
+})
