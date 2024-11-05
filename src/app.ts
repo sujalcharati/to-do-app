@@ -29,11 +29,26 @@ app.post('/signup', async (req: Request, res: Response) => {
   }
 });
 
-app.listen(3000,()=> console.log('the server is running on port 3000'))
-
-app.post('/todo', async( req: Request,res:Response){
-const {title, description}= todoSchema.parse(req.body);
 
 
-
-})
+app.post('/todo', async (req: Request, res: Response) => {
+  try {
+    const { title, description, done, userId } = todoSchema.parse(req.body);
+    const tododetail = await prisma.todo.create({
+      data: {
+        title,
+        description,
+        done,
+        userId
+      },
+    });
+    res.status(201).json({ msg: "todo successfully added", tododetail });
+  } catch (error) {
+    if (error instanceof ZodError) {
+      res.status(400).json({ error: error.message });
+    } else {
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  }
+});
+app.listen(3000,()=> console.log('the server is running on port 3000'));

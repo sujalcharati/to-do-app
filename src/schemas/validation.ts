@@ -6,7 +6,8 @@ export const signupSchema =z.object({
 })
 
 export const todoSchema =z.object({
-    todo: z.string().min(1),
+    title: z.string().min(1),
     description :z.string().min(1),
-    done : z.boolean().optional()
+    done : z.boolean().optional(),
+    userId:z.number()
 })
